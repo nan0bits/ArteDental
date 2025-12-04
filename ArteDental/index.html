@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arte Dental | Clínica de Especialidades</title>
+
+    <link rel="icon" type="image/x-icon" href="https://file.garden/aS-QKwj4K3mdDuHO/ArteDental/icono.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           ESTILOS (CSS)
+           ========================================= */
+        :root {
+            --primary: #2D9CDB;     
+            --secondary: #A4D138;   
+            --text-dark: #3e4a45;   
+            --white: #ffffff;
+            --light-bg: #f9f8f4;    
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            line-height: 1.9;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; color: var(--text-secondary); }
+
+        /* Espaciado General */
+        .section-padding { padding: 8rem 10%; }
+        @media (max-width: 768px) { .section-padding { padding: 4rem 5%; } }
+
+        .section-header { margin-bottom: 5rem; max-width: 800px; }
+        .section-header h2 { font-size: 2.5rem; display: inline-block; margin-bottom: 1rem; }
+
+        /* HEADER */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: var(--white); position: fixed;
+            width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-img { height: 50px; width: auto; margin-right: 10px; }
+        .logo-text { font-size: 1.4rem; font-weight: 700; color: var(--primary); text-transform: uppercase; line-height: 1; }
+        .logo-text span { color: var(--secondary); }
+
+        .navbar a { text-decoration: none; color: var(--text-dark); margin-left: 2rem; font-weight: 600; font-size: 0.9rem; transition: var(--transition); }
+        .navbar a:hover { color: var(--primary); }
+        .btn-header { background: var(--primary); color: var(--white) !important; padding: 0.6rem 1.5rem; border-radius: 50px; }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
+
+        /* HERO */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.5)), 
+                        url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover; background-position: center; display: flex; align-items: center; padding: 0 10%;
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.2; color: var(--primary); }
+
+        /* NOSOTROS */
+        .nosotros-container { display: flex; flex-wrap: wrap; gap: 4rem; align-items: flex-start; }
+        .video-col, .text-col { flex: 1; min-width: 300px; }
+        .gdb-header { display: flex; align-items: center; margin-bottom: 3rem; }
+        .line-deco { height: 2px; width: 60px; background-color: #aaa; margin-right: 20px; display: inline-block; }
+        
+        .video-wrapper { position: relative; padding-bottom: 100%; height: 0; overflow: hidden; border-radius: 5px; }
+        .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+
+        /* TRATAMIENTOS (GRID) */
+        .treatments-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; text-align: center; }
+        .treatment-box { cursor: pointer; transition: transform 0.3s ease; }
+        .treatment-box:hover { transform: translateY(-10px); }
+
+        .icon-square {
+            width: 100%; max-width: 150px; height: 150px; background-color: #3e4a45; color: white;
+            border-radius: 5px; display: flex; align-items: center; justify-content: center;
+            font-size: 3.5rem; margin: 0 auto 1.5rem; transition: background 0.3s;
+        }
+        .treatment-box:hover .icon-square { background-color: var(--secondary); }
+        .treatment-box h3 { text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; font-weight: 700; }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; overflow-y: auto;
+            display: none; opacity: 0; transition: opacity 0.4s ease;
+        }
+        .modal-overlay.active { display: block; opacity: 1; }
+
+        .close-modal {
+            position: fixed; top: 20px; right: 30px; font-size: 3rem; background: none; border: none;
+            color: white; cursor: pointer; z-index: 2001; transition: transform 0.3s;
+        }
+        .close-modal:hover { transform: rotate(90deg); color: var(--secondary); }
+
+        .modal-hero {
+            height: 50vh; background-size: cover; background-position: center; position: relative;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center;
+        }
+        .modal-hero-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); }
+        .modal-hero h1, .modal-breadcrumbs { position: relative; z-index: 2; }
+        
+        .modal-body { display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 4rem 5%; gap: 4rem; }
+        .modal-content-col { flex: 1; min-width: 300px; }
+        
+        .modal-side-image { width: 100%; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); object-fit: cover; max-height: 400px; }
+
+        /* BOTONES FLOTANTES */
+        .social-floating {
+            position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 9999;
+            background: rgba(255,255,255,0.8); padding: 10px 20px; border-radius: 50px; backdrop-filter: blur(5px);
+        }
+        .social-btn {
+            width: 45px; height: 45px; background-color: #4a5d58; color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.2rem; transition: all 0.3s ease;
+        }
+        .social-btn:hover { transform: translateY(-8px); background-color: var(--primary); }
+
+        /* Footer */
+        footer { background: #222; color: #ccc; padding: 4rem 10% 2rem; }
+        .clinics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
+        .clinic-card { border: 1px solid #eee; border-radius: 15px; overflow: hidden; }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar { position: absolute; top: 70px; left: 0; width: 100%; background: var(--white); flex-direction: column; padding: 1rem; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+            .navbar.active { display: flex; }
+            .modal-hero h1 { font-size: 2rem; padding: 0 20px; }
+            .social-floating { bottom: 20px; right: 50%; transform: translateX(50%); }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <a href="#inicio" class="logo">
+            <img src="https://file.garden/aS-QKwj4K3mdDuHO/ArteDental/logo1.png" alt="Logo Clínica" class="logo-img">
+            <div class="logo-text">Arte <span>Dental</span></div>
+        </a>
+        <nav class="navbar">
+            <a href="#inicio">Inicio</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#servicios">Tratamientos</a>
+            <a href="#clinicas">Sucursales</a>
+            <a href="https://wa.me/525643068833" target="_blank" class="btn-header">Agendar Cita</a>
+        </nav>
+        <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Arte Dental <br><span>Tecnología & Salud</span></h1>
+            <p>Especialistas en sonrisas sanas. Tu bienestar es nuestra prioridad.</p>
+        </div>
+    </section>
+
+    <section id="nosotros" class="section-padding" style="background-color: var(--light-bg);">
+        <div class="gdb-header">
+            <span class="line-deco"></span>
+            <h2 style="font-size: 1.5rem; margin: 0; letter-spacing: 2px;">NUESTRA CLÍNICA</h2>
+        </div>
+        <div class="nosotros-container">
+            <div class="video-col">
+                <img src="https://buscodentista.com.mx/wp-content/uploads/2025/07/clinica-arte-dental-head.jpg" 
+                     alt="Header Clínica" style="width: 100%; height: auto; margin-bottom: 2rem; border-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                
+                <div class="video-wrapper">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://cdn.pixabay.com/video/2025/07/01/288800_large.mp4" style="width: 100%; height: auto; type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <div class="text-col">
+                <h3 style="font-size: 2rem; margin-bottom: 2rem;">Excelencia Odontológica con <br>Trayectoria Internacional</h3>
+                <p>En Arte Dental fusionamos la tecnología más avanzada con un trato humano y cálido. Cada paciente es un proyecto único de ingeniería y estética.</p>
+                <br>
+                <p>Nuestro equipo de especialistas trabaja bajo estrictos protocolos de calidad para garantizar resultados duraderos. Entendemos tu sonrisa como nuestra carta de presentación ante el mundo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="section-padding">
+        <div class="section-header">
+            <h2>Especialidades</h2>
+            <div>
+                <div>
+                    <div></div>
+                </div>
+            </div>
+            <p>Selecciona un tratamiento para ver el detalle.</p>
+        </div>
+
+        <div class="treatments-grid">
+            <div class="treatment-box" onclick="abrirDetalle('prevencion')">
+                <div class="icon-square"><i class="fa-solid fa-tooth"></i></div>
+                <h3>Prevención</h3>
+            </div>
+            <div class="treatment-box" onclick="abrirDetalle('estetica')">
+                <div class="icon-square"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <h3>Estética</h3>
+            </div>
+            <div class="treatment-box" onclick="abrirDetalle('rehabilitacion')">
+                <div class="icon-square"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <h3>Rehabilitación</h3>
+            </div>
+            <div class="treatment-box" onclick="abrirDetalle('cirugia')">
+                <div class="icon-square"><i class="fa-solid fa-user-doctor"></i></div>
+                <h3>Implantes</h3>
+            </div>
+        </div>
+    </section>
+
+    <div id="treatment-modal" class="modal-overlay">
+        <button class="close-modal" onclick="cerrarDetalle()">&times;</button>
+        
+        <div class="modal-content">
+            <div class="modal-hero" id="modal-hero-bg">
+                <div class="modal-hero-overlay"></div>
+                <h1 id="modal-title">Título</h1>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content-col">
+                    <h3 id="modal-subtitle" style="color: var(--primary); margin-bottom: 20px;">Subtítulo</h3>
+                    <p id="modal-desc">Descripción...</p>
+                    <br>
+                    <a href="https://wa.me/525643068833" target="_blank" class="btn-header">Agendar Cita Ahora</a>
+                </div>
+                <div class="modal-content-col">
+                     <img id="modal-side-img" src="" alt="Detalle" class="modal-side-image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="clinicas" class="section-padding" style="background-color: var(--light-bg);">
+        <div class="section-header"><h2>Sucursales</h2></div>
+        <div class="clinics-grid">
+            <div class="clinic-card">
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" style="width:100%; height:200px; object-fit:cover;">
+                <div style="padding:20px;">
+                    <h3>Sucursal Chicoloapan</h3>
+                    <p>Av. Libertad Manzana 019, Cabecera Municipal, 56370 Chicoloapan de Juárez, Méx.</p>
+                    <a href="https://maps.app.goo.gl/RmzvskeNYLUNULZa7" target="_blank" style="color:var(--primary); font-weight:bold;">Ver Mapa</a>
+                </div>
+            </div>
+            <div class="clinic-card">
+                <img src="https://images.unsplash.com/photo-1582719188393-bb71ca45dbb9?auto=format&fit=crop&w=800&q=80" style="width:100%; height:200px; object-fit:cover;">
+                <div style="padding:20px;">
+                    <h3>Sucursal Sur</h3>
+                    <p>Av. López Mateos #1200</p>
+                    <a href="https://goo.gl/maps/xyz" target="_blank" style="color:var(--primary); font-weight:bold;">Ver Mapa</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="social-floating">
+        <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="social-btn ig"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://wa.me/525643068833" target="_blank" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Arte Dental. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // 1. BASE DE DATOS DE TRATAMIENTOS
+        const tratamientosData = {
+            'prevencion': {
+                title: "Prevención",
+                subtitle: "La base de una sonrisa sana",
+                bg: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1950&q=80",
+                desc: "Las visitas regulares y limpiezas profesionales son esenciales. Detectamos problemas antes de que sean dolorosos y costosos.",
+                sideImage: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=800&q=80"
+            },
+            'estetica': {
+                title: "Estética Dental",
+                subtitle: "Diseñamos la sonrisa de tus sueños",
+                bg: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1950&q=80",
+                desc: "Carillas, blanqueamientos y diseño digital de sonrisa. Analizamos tus facciones para crear dientes que se vean naturales.",
+                sideImage: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?auto=format&fit=crop&w=800&q=80"
+            },
+            'rehabilitacion': {
+                title: "Rehabilitación",
+                subtitle: "Recupera la función total",
+                bg: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1950&q=80",
+                desc: "Tratamientos complejos para bocas dañadas. Usamos coronas y puentes de alta resistencia.",
+                sideImage: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80"
+            },
+            'cirugia': {
+                title: "Cirugía e Implantes",
+                subtitle: "Soluciones definitivas",
+                bg: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1950&q=80",
+                desc: "Implantes de titanio que se integran a tu hueso. La mejor opción para reemplazar dientes perdidos.",
+                sideImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80"
+            }
+        };
+
+        // 2. FUNCIÓN DE MODAL
+        function abrirDetalle(id) {
+            const modal = document.getElementById('treatment-modal');
+            const data = tratamientosData[id];
+
+            if(data) {
+                document.getElementById('modal-title').innerText = data.title;
+                document.getElementById('modal-subtitle').innerText = data.subtitle;
+                document.getElementById('modal-desc').innerHTML = data.desc;
+                document.getElementById('modal-hero-bg').style.backgroundImage = `url('${data.bg}')`;
+                
+                const sideImg = document.getElementById('modal-side-img');
+                if(sideImg) sideImg.src = data.sideImage;
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function cerrarDetalle() {
+            document.getElementById('treatment-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 3. MENÚ MÓVIL
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.navbar').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
