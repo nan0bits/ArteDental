@@ -1,0 +1,389 @@
+/* =========================================
+   VARIABLES Y RESET
+   ========================================= */
+:root {
+    --primary: #0e4c5e;
+    --accent: #A4D138;
+    --light: #f4f9f9;
+    --white: #ffffff;
+    --text: #333333;
+    --header-height: 80px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { 
+    scroll-behavior: smooth;
+    /* HE QUITADO scroll-snap (el efecto imán) PARA QUE EL SCROLL FUNCIONE BIEN */
+    scroll-padding-top: var(--header-height);
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--light);
+    /* Aseguramos que se pueda hacer scroll */
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+
+h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+
+/* =========================================
+   HEADER
+   ========================================= */
+header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 5%; height: var(--header-height);
+    background: var(--white); position: fixed; width: 100%; top: 0; 
+    z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; display: flex; align-items: center;}
+.logo span { color: var(--accent); }
+.logo-img { height: 50px; margin-right: 10px; }
+
+.navbar a { text-decoration: none; color: var(--primary); margin-left: 2rem; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+.navbar a:hover { color: var(--accent); }
+
+.btn-header { background: var(--primary); color: var(--white) !important; padding: 0.6rem 1.5rem; border-radius: 50px; }
+.menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
+
+/* =========================================
+   HERO
+   ========================================= */
+.hero {
+    position: relative; height: 100vh; width: 100%;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; color: var(--white); overflow: hidden;
+}
+
+.hero-video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: -1; filter: blur(8px); transform: scale(1.1);
+}
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(14, 76, 94, 0.6); z-index: 0; }
+.hero-content { position: relative; z-index: 3; padding: 0 20px; }
+.hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+.hero h1 span { color: var(--accent); }
+
+/* =========================================
+   SECCIONES (ESPACIADO)
+   ========================================= */
+.section-padding { 
+    /* Quitamos el height 100vh forzado para evitar problemas de scroll */
+    padding: 100px 5%; 
+    min-height: 70vh; /* Ocupa buena parte de la pantalla pero deja hacer scroll */
+}
+
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-header h2 { font-size: 2.5rem; color: var(--primary); }
+
+.nosotros-container { display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
+.video-col, .text-col { flex: 1; min-width: 300px; }
+
+/* =========================================
+   CARRUSEL
+   ========================================= */
+.equipo-section { padding: 100px 5%; position: relative; }
+.team-title { text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--primary); }
+.carousel-container { position: relative; max-width: 1400px; margin: 0 auto; }
+
+.team-scroller {
+    display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth;
+    padding: 20px 5px; scrollbar-width: none;
+}
+.team-scroller::-webkit-scrollbar { display: none; }
+.team-scroller .team-card {
+    flex: 0 0 calc(25% - 15px); min-width: 250px; height: 400px;
+    position: relative; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: var(--white);
+}
+.team-scroller .team-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.team-scroller .team-card:hover img { transform: scale(1.1); }
+.member-info {
+    position: absolute; bottom: 20px; left: 20px; right: 20px;
+    background: rgba(255, 255, 255, 0.95); padding: 15px;
+    border-left: 5px solid var(--accent); border-radius: 4px;
+}
+.member-info h4 { color: var(--primary); margin: 0; font-size: 1.1rem; }
+.member-info p { font-size: 0.85rem; color: #666; margin: 0; }
+
+.nav-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: var(--white); color: var(--primary); border: 1px solid #ddd;
+    width: 50px; height: 50px; border-radius: 50%; cursor: pointer; z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;
+}
+.nav-btn.prev { left: -25px; }
+.nav-btn.next { right: -25px; }
+
+/* =========================================
+   TRATAMIENTOS & SUCURSALES
+   ========================================= */
+
+/* =========================================
+   TRATAMIENTOS (ESTILO ORIGINAL RESTAURADO)
+   ========================================= */
+
+.treatments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Estilo limpio (sin tarjeta blanca de fondo) */
+.treatment-box {
+    background: transparent;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Animación simple al flotar */
+.treatment-box:hover {
+    transform: translateY(-10px);
+    box-shadow: none;
+    border-color: transparent;
+}
+
+/* El cuadro oscuro con icono blanco */
+.icon-square {
+    width: 120px;  /* Tamaño grande */
+    height: 120px;
+    background-color: #3e4a45; /* Gris oscuro elegante */
+    color: #ffffff; /* Iconos en blanco */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    margin: 0 auto 1.5rem;
+    transition: background-color 0.3s ease;
+}
+
+/* Al pasar el mouse, el cuadro se vuelve AZUL */
+.treatment-box:hover .icon-square {
+    background-color: var(--primary); /* Se ilumina con tu color corporativo */
+    transform: none; /* Quitamos la rotación loca del otro diseño */
+    color: white;
+}
+
+/* Texto debajo del icono */
+.treatment-box h3 {
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: #3e4a45;
+    font-weight: 800; /* Letra bien negrita como en la foto */
+    margin-top: 10px;
+}
+
+/* Regla especial para que tu PNG de implante se vea blanco */
+.icon-square img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.treatment-box:hover .icon-square { 
+    background: var(--primary); 
+    color: var(--white); 
+}
+
+.treatment-box h3 { 
+    font-size: 1.1rem; 
+    letter-spacing: 1px; 
+}
+
+/* ESTILOS DEL MODAL */
+.modal-overlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: white; z-index: 20000; overflow-y: auto; 
+    display: none; opacity: 0; transition: opacity 0.4s ease; 
+}
+
+.modal-overlay.active { display: block; opacity: 1; }
+
+.close-modal { 
+    position: fixed; top: 20px; right: 30px; font-size: 3rem; 
+    background: none; border: none; color: white; cursor: pointer; 
+    z-index: 20001; transition: transform 0.3s; 
+}
+
+.close-modal:hover { transform: rotate(90deg); color: var(--secondary); }
+
+.modal-hero { 
+    height: 50vh; background-size: cover; background-position: center; 
+    position: relative; display: flex; flex-direction: column; 
+    align-items: center; justify-content: center; text-align: center; 
+}
+
+.modal-hero-overlay { 
+    position: absolute; top:0; left:0; width:100%; height:100%; 
+    background: rgba(0,0,0,0.6); 
+}
+
+.modal-hero h1 { 
+    position: relative; z-index: 2; color: #ffffff !important; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-size: 3.5rem; 
+}
+
+.modal-body { 
+    display: flex; flex-wrap: wrap; max-width: 1200px; 
+    margin: 0 auto; padding: 5rem 5%; gap: 4rem; 
+}
+
+.modal-content-col { flex: 1; min-width: 300px; }
+
+.modal-side-image { 
+    width: 100%; border-radius: 20px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Variable --shadow manual */
+    object-fit: cover; max-height: 400px; 
+}
+
+.clinics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
+.clinic-card { border: 1px solid #eee; border-radius: 15px; overflow: hidden; background: var(--white); }
+
+/* =========================================
+   MODAL (DIALOG) - ESTILOS FINALES
+   ========================================= */
+/* Estilos para el elemento <dialog> */
+dialog.native-modal {
+    width: 90%;
+    max-width: 1200px;
+    height: 85vh; /* Ocupa casi toda la altura */
+    border: none;
+    border-radius: 20px;
+    padding: 0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    background: var(--white);
+    /* Animación de entrada */
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Cuando el dialog está abierto */
+dialog.native-modal[open] {
+    opacity: 1;
+    transform: scale(1);
+    display: flex; /* Para centrar contenido si es necesario */
+    flex-direction: column;
+}
+
+/* Fondo oscuro detrás del modal (backdrop nativo) */
+dialog.native-modal::backdrop {
+    background: rgba(14, 76, 94, 0.8); /* Tu color primario con transparencia */
+    backdrop-filter: blur(5px);
+}
+
+/* Layout interno del modal */
+.modal-layout {
+    display: flex;
+    flex-direction: row-reverse; /* Imagen a la derecha, texto a la izquierda */
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Columna de Texto */
+.modal-text-col {
+    flex: 1;
+    padding: 4rem;
+    overflow-y: auto; /* Scroll si el texto es muy largo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-heading { font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem; }
+.modal-subheading { font-size: 1.5rem; color: var(--accent); margin-bottom: 2rem; }
+.modal-description { font-size: 1.1rem; color: #555; line-height: 1.8; }
+
+/* Columna de Imagen */
+.modal-img-col {
+    flex: 1;
+    position: relative;
+    background: #f0f0f0;
+}
+
+.img-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative; /* Clave para posicionar el botón X */
+}
+
+.img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Botón de Cerrar (X) */
+.close-modal-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--white); /* Fondo blanco para que se vea sobre la foto */
+    color: var(--primary);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.close-modal-btn:hover {
+    background-color: var(--accent);
+    color: var(--white);
+    transform: rotate(90deg);
+}
+
+/* Cuerpo del modal */
+.modal-body { display: flex; flex-wrap: wrap; padding: 2rem 3rem; gap: 2rem; }
+.modal-content-col { flex: 1; min-width: 300px; }
+.modal-content-col h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem; }
+.modal-content-col p { font-size: 1rem; color: #555; }
+.modal-side-image { width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer { background: #082d38; color: #bbd1d6; padding: 4rem 5% 1rem; }
+.social-floating { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 999; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 50px; }
+.social-btn { width: 45px; height: 45px; background: #4a5d58; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+.social-btn:hover { background: var(--primary); }
+
+/* =========================================
+   RESPONSIVO
+   ========================================= */
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .navbar { 
+        position: fixed; top: 80px; left: 0; width: 100%; height: calc(100vh - 80px);
+        background: white; flex-direction: column; padding-top: 2rem; display: none;
+    }
+    .navbar.active { display: flex; }
+    .nav-btn { display: none; }
+    .team-scroller .team-card { flex: 0 0 85%; }
+    
+    /* Ajuste Modal en móvil */
+    dialog.modal-moderno { width: 95%; max-height: 90vh; overflow-y: auto; }
+    .modal-hero { height: 150px; }
+    .modal-hero h1 { font-size: 1.8rem; }
+    .modal-body { padding: 1.5rem; }
+}
