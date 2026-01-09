@@ -72,9 +72,9 @@ header {
    SECCIONES (ESPACIADO)
    ========================================= */
 .section-padding { 
-    /* Quitamos el height 100vh forzado para evitar problemas de scroll */
+   
     padding: 100px 5%; 
-    min-height: 70vh; /* Ocupa buena parte de la pantalla pero deja hacer scroll */
+    min-height: 70vh;
 }
 
 .section-header { text-align: center; margin-bottom: 3rem; }
@@ -122,11 +122,6 @@ header {
 /* =========================================
    TRATAMIENTOS & SUCURSALES
    ========================================= */
-
-/* =========================================
-   TRATAMIENTOS (ESTILO ORIGINAL RESTAURADO)
-   ========================================= */
-
 .treatments-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -136,7 +131,7 @@ header {
     margin: 0 auto;
 }
 
-/* Estilo limpio (sin tarjeta blanca de fondo) */
+/* Estilo limpio*/
 .treatment-box {
     background: transparent;
     padding: 0;
@@ -158,9 +153,9 @@ header {
 .icon-square {
     width: 120px;  /* Tamaño grande */
     height: 120px;
-    background-color: #3e4a45; /* Gris oscuro elegante */
+    background-color: #3e4a45; 
     color: #ffffff; /* Iconos en blanco */
-    border-radius: 5px; /* Bordes ligeramente redondeados */
+    border-radius: 8px; /* Bordes ligeramente redondeados */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -386,7 +381,6 @@ footer { background: #082d38; color: #bbd1d6; padding: 4rem 5% 1rem; }
     .modal-hero { height: 150px; }
     .modal-hero h1 { font-size: 1.8rem; }
     .modal-body { padding: 1.5rem; }
-
 }
 /* Más espacio en los párrafos y listas */
 p, li {
