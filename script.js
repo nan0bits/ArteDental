@@ -1,87 +1,37 @@
 /* =========================================
    1. BASE DE DATOS (GLOBAL)
    ========================================= */
-// DATOS DE TRATAMIENTOS
 const tratamientosData = {
-    'prevencion': { 
-        title: "Odontología Integral y Preventiva",
-        subtitle: "El cuidado esencial para toda la familia",
+    'prevencion': {
+        title: "Prevención",
+        subtitle: "La base de una sonrisa sana",
         bg: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1950&q=80",
-        desc: `
-        <bl>
-            <p>La base de una boca sana. Nuestro equipo se encarga de mantener tus dientes libres de caries y dolor.</p>
-            <ul class="modal-list">
-                <li><i class="fa-solid fa-check"></i> Limpiezas dentales profundas (Profilaxis)</li>
-                <li><i class="fa-solid fa-check"></i> Resinas estéticas (Empastes invisibles)</li>
-                <li><i class="fa-solid fa-check"></i> Extracciones simples y curaciones</li>
-                <li><i class="fa-solid fa-check"></i> Atención a niños y adultos</li>
-            </ul>`,
+        desc: "Las visitas regulares y limpiezas profesionales son esenciales. Detectamos problemas antes de que sean dolorosos y costosos.",
+        // Asegúrate de que estas imágenes existan o usa tus propias rutas
         sideImage: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=800&q=80"
     },
-    'estetica': { 
-        title: "Ortodoncia y Armonización Facial",
-        subtitle: "Alineamos tus dientes y perfilamos tu rostro",
+    'estetica': {
+        title: "Estética Dental",
+        subtitle: "Diseñamos la sonrisa de tus sueños",
         bg: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1950&q=80",
-        desc: `
-            <p>Diseñamos sonrisas que armonizan con tus facciones. Contamos con especialistas en Ortodoncia y Armonización Facial.</p>
-            <ul class="modal-list">
-                <li><i class="fa-solid fa-check"></i> <strong>Brackets:</strong> Metálicos, estéticos y de autoligado.</li>
-                <li><i class="fa-solid fa-check"></i> <strong>Alineadores:</strong> Tecnología invisible.</li>
-                <li><i class="fa-solid fa-check"></i> <strong>Armonización:</strong> Rellenos y perfilado facial.</li>
-                <li><i class="fa-solid fa-check"></i> <strong>Diseño de Sonrisa:</strong> Carillas y blanqueamientos.</li>
-            </ul>`,
+        desc: "Carillas, blanqueamientos y diseño digital de sonrisa. Analizamos tus facciones para crear dientes que se vean naturales y perfectos.",
         sideImage: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?auto=format&fit=crop&w=800&q=80"
     },
     'rehabilitacion': {
-        title: "Rehabilitación Oral",
-        subtitle: "Devolvemos la función y estética a tu boca",
-        bg: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1950&q=80",
-        desc: `
-            <p>Tratamientos ideales para dientes muy dañados. Recupera la capacidad de comer y sonreír con seguridad.</p>
-            
-            <ul class="modal-list">
-                <li><i class="fa-solid fa-check"></i> Coronas de Zirconia y Porcelana</li>
-                <li><i class="fa-solid fa-check"></i> Puentes fijos y removibles</li>
-                <li><i class="fa-solid fa-check"></i> Prótesis totales</li>
-                <li><i class="fa-solid fa-check"></i> Endodoncia</li>
-            </ul>`,
+        title: "Rehabilitación",
+        subtitle: "Recupera la función y la estética",
+        bg: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1950&q=80",
+        desc: "Tratamientos complejos para bocas dañadas. Usamos coronas, puentes y resinas de alta resistencia para que vuelvas a comer con confianza.",
         sideImage: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80"
     },
     'cirugia': {
-        title: "Cirugía, Implantes y Periodoncia",
-        subtitle: "Soluciones definitivas de alta especialidad",
+        title: "Cirugía e Implantes",
+        subtitle: "Soluciones definitivas",
         bg: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1950&q=80",
-        desc: `
-            <p>Procedimientos quirúrgicos avanzados realizados por expertos.</p>
-            <ul class="modal-list">
-                <li><i class="fa-solid fa-check"></i> <strong>Implantes Dentales:</strong> La mejor opción para reemplazar dientes.</li>
-                <li><i class="fa-solid fa-check"></i> <strong>Cirugía Bucal:</strong> Extracción de muelas del juicio.</li>
-                <li><i class="fa-solid fa-check"></i> <strong>Periodoncia:</strong> Tratamiento de encías y movilidad.</li>
-            </ul>`,
+        desc: "Implantes de titanio que se integran a tu hueso. La mejor opción para reemplazar dientes perdidos con una sensación 100% natural.",
         sideImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80"
     }
 };
-
-// FUNCIONES PARA ABRIR Y CERRAR
-function abrirDetalle(id) {
-    const modal = document.getElementById('treatment-modal');
-    const data = tratamientosData[id];
-    if(data) {
-        document.getElementById('modal-title').innerText = data.title;
-        document.getElementById('modal-subtitle').innerText = data.subtitle;
-        document.getElementById('modal-desc').innerHTML = data.desc;
-        document.getElementById('modal-hero-bg').style.backgroundImage = `url('${data.bg}')`;
-        const sideImg = document.getElementById('modal-side-img');
-        if(sideImg) sideImg.src = data.sideImage;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function cerrarDetalle() {
-    document.getElementById('treatment-modal').classList.remove('active');
-    document.body.style.overflow = 'auto';
-}
 
 /* =========================================
    2. FUNCIONES DEL MODAL (GLOBALES)
@@ -212,5 +162,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.hidden-section').forEach((el) => observer.observe(el));
 
 }); 
-
 // FIN DEL DOMContentLoaded
