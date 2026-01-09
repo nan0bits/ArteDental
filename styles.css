@@ -386,4 +386,10 @@ footer { background: #082d38; color: #bbd1d6; padding: 4rem 5% 1rem; }
     .modal-hero { height: 150px; }
     .modal-hero h1 { font-size: 1.8rem; }
     .modal-body { padding: 1.5rem; }
+
+}
+/* Más espacio en los párrafos y listas */
+p, li {
+    line-height: 1.9; /* Un poco más abierto que el resto */
+    margin-bottom: 10px; /* Espacio extra al final de cada bloque de texto */
 }
